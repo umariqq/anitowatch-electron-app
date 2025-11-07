@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Characters - AniToWatch</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><i class="fas fa-play-circle"></i> AniToWatch</h1>
+                </div>
+                
+                <nav class="nav-main">
+                    <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                    <a href="anime.html" class="nav-link"><i class="fas fa-tv"></i> Anime</a>
+                    <a href="manga.html" class="nav-link"><i class="fas fa-book"></i> Manga</a>
+                    <a href="characters.html" class="nav-link"><i class="fas fa-users"></i> Characters</a>
+                    <a href="favorites.html" class="nav-link"><i class="fas fa-heart"></i> Favorites</a> <!-- NEW -->
+                    <a href="watchlist.html" class="nav-link"><i class="fas fa-bookmark"></i> Watchlist</a>
+                    <a href="readinglist.html" class="nav-link"><i class="fas fa-list"></i> Reading List</a>
+                </nav>
+
+                <div class="header-actions">
+                    <div class="search-box">
+                        <input type="text" id="globalSearch" placeholder="Search characters...">
+                        <button class="search-btn" onclick="performSearch()">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-users"></i>
+                        Popular Characters
+                    </h2>
+                    <div class="character-stats" id="characterStats">
+                        <span id="totalCharacters">Loading...</span>
+                    </div>
+                </div>
+
+                <!-- SEARCH AND FILTERS -->
+                <div class="filter-section">
+                    <div class="search-box" style="width: 100%; margin-bottom: 20px;">
+                        <input type="text" id="characterSearch" placeholder="Search characters or voice actors...">
+                        <button class="search-btn" onclick="characterManager.search()">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="filter-row">
+                        <select id="animeFilter" class="filter-select">
+                            <option value="">All Anime</option>
+                            <!-- Anime list loaded dynamically -->
+                        </select>
+                        
+                        <select id="typeFilter" class="filter-select">
+                            <option value="">All Types</option>
+                            <option value="main">Main Characters</option>
+                            <option value="supporting">Supporting</option>
+                        </select>
+                        
+                        <button class="btn btn-primary" onclick="characterManager.applyFilters()">
+                            <i class="fas fa-filter"></i> Apply Filters
+                        </button>
+                        
+                        <button class="btn btn-secondary" onclick="characterManager.clearFilters()">
+                            <i class="fas fa-times"></i> Clear
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CHARACTERS GRID -->
+                <div id="charactersGrid" class="characters-grid">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <p>Loading characters...</p>
+                    </div>
+                </div>
+
+                <!-- LOAD MORE BUTTON -->
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn btn-primary" id="loadMore" onclick="characterManager.loadMore()" style="display: none;">
+                        <i class="fas fa-plus"></i> Load More Characters
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 AniToWatch. Character data from Jikan API.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/characters.js"></script>
+    <script>
+        let characterManager;
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            characterManager = new CharacterManager();
+        });
+
+        function performSearch() {
+            const query = document.getElementById('globalSearch').value.trim();
+            if (query) {
+                window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+            }
+        }
+
+        document.getElementById('globalSearch').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') performSearch();
+        });
+
+        document.getElementById('characterSearch').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') characterManager.search();
+        });
+    </script>
+</body>
+</html>

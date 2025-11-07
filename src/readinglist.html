@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Reading List - AniToWatch</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><i class="fas fa-play-circle"></i> AniToWatch</h1>
+                </div>
+                
+                <nav class="nav-main">
+                    <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                    <a href="anime.html" class="nav-link"><i class="fas fa-tv"></i> Anime</a>
+                    <a href="manga.html" class="nav-link"><i class="fas fa-book"></i> Manga</a>
+                    <a href="characters.html" class="nav-link"><i class="fas fa-users"></i> Characters</a>
+                    <a href="favorites.html" class="nav-link"><i class="fas fa-heart"></i> Favorites</a> <!-- NEW -->
+                    <a href="watchlist.html" class="nav-link"><i class="fas fa-bookmark"></i> Watchlist</a>
+                    <a href="readinglist.html" class="nav-link"><i class="fas fa-list"></i> Reading List</a>
+                </nav>
+
+                <div class="header-actions">
+                    <div class="search-box">
+                        <input type="text" id="globalSearch" placeholder="Search...">
+                        <button class="search-btn" onclick="performSearch()">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-list"></i>
+                        My Manga Reading List
+                    </h2>
+                    <div class="readinglist-stats" id="readinglistStats">
+                        <span id="totalManga">0 manga</span>
+                        <span id="totalChapters">0 chapters read</span>
+                        <span id="completedManga">0 completed</span>
+                    </div>
+                </div>
+
+                <!-- READING LIST FILTERS -->
+                <div class="filter-section">
+                    <div class="filter-row">
+                        <select id="statusFilter" class="filter-select" onchange="readingListManager.filterReadingList()">
+                            <option value="all">All Status</option>
+                            <option value="planning">Planning to Read</option>
+                            <option value="reading">Currently Reading</option>
+                            <option value="completed">Completed</option>
+                            <option value="dropped">Dropped</option>
+                        </select>
+                        
+                        <select id="sortFilter" class="filter-select" onchange="readingListManager.sortReadingList()">
+                            <option value="added">Recently Added</option>
+                            <option value="title">Title A-Z</option>
+                            <option value="score">Highest Score</option>
+                            <option value="chapters">Most Chapters</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- READING LIST CONTENT -->
+                <div id="readingListContent">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <p>Loading your reading list...</p>
+                    </div>
+                </div>
+
+                <!-- EMPTY STATE -->
+                <div id="emptyReadingList" class="empty-state" style="display: none;">
+                    <div class="empty-icon">
+                        <i class="fas fa-list fa-3x"></i>
+                    </div>
+                    <h3>Your reading list is empty</h3>
+                    <p>Start adding manga to your reading list to track your progress!</p>
+                    <div class="empty-actions">
+                        <button class="btn btn-primary" onclick="location.href='manga.html'">
+                            <i class="fas fa-book"></i> Browse Manga
+                        </button>
+                        <button class="btn btn-secondary" onclick="location.href='index.html'">
+                            <i class="fas fa-home"></i> Go Home
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- EDIT MODAL -->
+    <div id="editModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Manga Progress</h3>
+                <button class="modal-close" onclick="readingListManager.closeEditModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="editFormContent">
+                    <!-- Form loaded dynamically by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 AniToWatch. Track your manga journey.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/readinglist.js"></script>
+    <script>
+        let readingListManager;
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            readingListManager = new ReadingListManager();
+        });
+
+        function performSearch() {
+            const query = document.getElementById('globalSearch').value.trim();
+            if (query) {
+                window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+            }
+        }
+
+        document.getElementById('globalSearch').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') performSearch();
+        });
+    </script>
+</body>
+</html>

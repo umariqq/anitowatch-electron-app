@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AniToWatch - Anime & Manga Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- HEADER SECTION -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><i class="fas fa-play-circle"></i> AniToWatch</h1>
+                </div>
+                
+                <!-- MAIN NAVIGATION -->
+                <nav class="nav-main">
+                    <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                    <a href="anime.html" class="nav-link"><i class="fas fa-tv"></i> Anime</a>
+                    <a href="manga.html" class="nav-link"><i class="fas fa-book"></i> Manga</a>
+                    <a href="characters.html" class="nav-link"><i class="fas fa-users"></i> Characters</a>
+                    <a href="favorites.html" class="nav-link"><i class="fas fa-heart"></i> Favorites</a> <!-- NEW -->
+                    <a href="watchlist.html" class="nav-link"><i class="fas fa-bookmark"></i> Watchlist</a>
+                    <a href="readinglist.html" class="nav-link"><i class="fas fa-list"></i> Reading List</a>
+                </nav>
+
+                <!-- SEARCH FUNCTIONALITY -->
+                <div class="header-actions">
+                    <div class="search-box">
+                        <input type="text" id="globalSearch" placeholder="Search anime or manga...">
+                        <button class="search-btn" onclick="performSearch()">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Track Your Anime & Manga Journey</h1>
+                <p class="hero-subtitle">Discover new series, track your progress, and explore characters using the Jikan API. Fast, reliable, and always up-to-date.</p>
+                <div class="hero-actions">
+                    <button class="btn btn-large btn-primary" onclick="location.href='anime.html'">
+                        <i class="fas fa-tv"></i> Browse Anime
+                    </button>
+                    <button class="btn btn-large btn-secondary" onclick="location.href='manga.html'">
+                        <i class="fas fa-book"></i> Browse Manga
+                    </button>
+                    <button class="btn btn-large btn-secondary" onclick="location.href='characters.html'">
+                        <i class="fas fa-users"></i> Explore Characters
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="main-content">
+        <div class="container">
+            <!-- TRENDING ANIME SECTION -->
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-fire"></i>
+                        Trending Anime
+                    </h2>
+                    <a href="anime.html" class="view-all">
+                        View All <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+                <div class="trending-grid" id="trendingAnime">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <p>Loading trending anime...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RECENTLY UPDATED SECTION -->
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-clock"></i>
+                        Currently Airing
+                    </h2>
+                    <a href="anime.html" class="view-all">
+                        View All <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+                <div class="recent-grid" id="recentAnime">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <p>Loading recent anime...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- POPULAR MANGA SECTION -->
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-book"></i>
+                        Popular Manga
+                    </h2>
+                    <a href="manga.html" class="view-all">
+                        View All <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+                <div class="manga-grid" id="popularManga">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <p>Loading popular manga...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SCHEDULE SECTION -->
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-calendar"></i>
+                        This Week's Schedule
+                    </h2>
+                </div>
+                <div class="schedule-container" id="scheduleContainer">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <p>Loading schedule...</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>AniToWatch</h3>
+                    <p>Your comprehensive anime and manga tracking application. Built with Electron and powered by Jikan API.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Navigation</h4>
+                    <a href="anime.html">Anime Browser</a>
+                    <a href="manga.html">Manga Browser</a>
+                    <a href="characters.html">Characters</a>
+                    <a href="watchlist.html">My Watchlist</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Technology</h4>
+                    <a href="https://jikan.moe" target="_blank">Jikan API</a>
+                    <a href="https://electronjs.org" target="_blank">Electron</a>
+                    <a href="https://myanimelist.net" target="_blank">MyAnimeList</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AniToWatch. All data provided by Jikan API (MyAnimeList).</p>
+                <p>This application is for educational purposes and personal tracking use.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script src="js/app.js"></script>
+    <script>
+        /**
+         * Global search functionality
+         */
+        function performSearch() {
+            const query = document.getElementById('globalSearch').value.trim();
+            if (query) {
+                window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+            }
+        }
+
+        // Enable Enter key for search
+        document.getElementById('globalSearch').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') performSearch();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search - AniToWatch</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><i class="fas fa-play-circle"></i> AniToWatch</h1>
+                </div>
+                
+                <nav class="nav-main">
+                    <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                    <a href="anime.html" class="nav-link"><i class="fas fa-tv"></i> Anime</a>
+                    <a href="manga.html" class="nav-link"><i class="fas fa-book"></i> Manga</a>
+                    <a href="characters.html" class="nav-link"><i class="fas fa-users"></i> Characters</a>
+                    <a href="favorites.html" class="nav-link"><i class="fas fa-heart"></i> Favorites</a> <!-- NEW -->
+                    <a href="watchlist.html" class="nav-link"><i class="fas fa-bookmark"></i> Watchlist</a>
+                    <a href="readinglist.html" class="nav-link"><i class="fas fa-list"></i> Reading List</a>
+                </nav>
+
+                <div class="header-actions">
+                    <div class="search-box">
+                        <input type="text" id="globalSearch" placeholder="Search...">
+                        <button class="search-btn" onclick="performSearch()">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-search"></i>
+                        Search Results
+                    </h2>
+                    <div class="search-stats" id="searchStats">
+                        <span id="resultCount">Searching...</span>
+                    </div>
+                </div>
+
+                <!-- SEARCH INPUT -->
+                <div class="filter-section">
+                    <div class="search-box" style="width: 100%; margin-bottom: 20px;">
+                        <input type="text" id="searchInput" placeholder="Search for anime, manga, or characters...">
+                        <button class="search-btn" onclick="searchManager.performSearch()">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- SEARCH TABS -->
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" onclick="searchManager.switchTab('all')">All Results</button>
+                        <button class="tab-btn" onclick="searchManager.switchTab('anime')">Anime</button>
+                        <button class="tab-btn" onclick="searchManager.switchTab('manga')">Manga</button>
+                        <button class="tab-btn" onclick="searchManager.switchTab('characters')">Characters</button>
+                    </div>
+                </div>
+
+                <!-- SEARCH RESULTS -->
+                <div id="searchResults">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <p>Searching...</p>
+                    </div>
+                </div>
+
+                <!-- NO RESULTS STATE -->
+                <div id="noResults" class="empty-state" style="display: none;">
+                    <div class="empty-icon">
+                        <i class="fas fa-search fa-3x"></i>
+                    </div>
+                    <h3>No results found</h3>
+                    <p>Try adjusting your search terms or browse our categories.</p>
+                    <div class="empty-actions">
+                        <button class="btn btn-primary" onclick="location.href='anime.html'">
+                            <i class="fas fa-tv"></i> Browse Anime
+                        </button>
+                        <button class="btn btn-secondary" onclick="location.href='manga.html'">
+                            <i class="fas fa-book"></i> Browse Manga
+                        </button>
+                    </div>
+                </div>
+
+                <!-- LOAD MORE BUTTON -->
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn btn-primary" id="loadMore" onclick="searchManager.loadMore()" style="display: none;">
+                        <i class="fas fa-plus"></i> Load More Results
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 AniToWatch. Search powered by Jikan API.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/search.js"></script>
+    <script>
+        let searchManager;
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            searchManager = new SearchManager();
+        });
+
+        function performSearch() {
+            const query = document.getElementById('globalSearch').value.trim();
+            if (query) {
+                window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+            }
+        }
+
+        document.getElementById('globalSearch').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') performSearch();
+        });
+
+        document.getElementById('searchInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') searchManager.performSearch();
+        });
+    </script>
+</body>
+</html>
